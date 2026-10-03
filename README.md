@@ -11,6 +11,7 @@ Tudo fica no `<script>` do `index.html`:
 - **Número do WhatsApp:** constante `WHATSAPP` (DDI + DDD + número, só dígitos).
 - **Sabores, bebidas e preços:** lista `MENU`.
 - **Sabores de borda:** lista `BORDAS`.
+- **Horário de funcionamento:** constantes `ABRE`, `FECHA` e `FOLGA` (dia da semana em que fecha).
 
 ## Publicar no GitHub Pages
 
