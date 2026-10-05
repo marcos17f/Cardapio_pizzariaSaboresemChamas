@@ -26,6 +26,15 @@ button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation}
 button:focus-visible,select:focus-visible,textarea:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 
 header.hero{display:flex;align-items:center;gap:18px;padding-block:28px 18px;border-bottom:1px solid var(--line)}
+/* brasa atrás do cabeçalho: só gradientes, de ponta a ponta da tela */
+body{overflow-x:clip}
+header.hero{position:relative;isolation:isolate}
+header.hero::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:50%;width:100vw;transform:translateX(-50%);pointer-events:none;
+  background:
+    radial-gradient(ellipse 45% 110% at 18% 125%,rgba(255,138,20,.42),transparent 70%),
+    radial-gradient(ellipse 55% 120% at 78% 135%,rgba(255,90,0,.30),transparent 70%),
+    radial-gradient(ellipse 95% 150% at 50% 140%,rgba(212,23,30,.55),transparent 72%)}
+@media (prefers-reduced-motion:no-preference){header.hero::before{animation:brasa 5s ease-in-out infinite alternate}@keyframes brasa{from{opacity:.75}to{opacity:1}}}
 .seal{flex:none;width:84px;height:84px;border-radius:50%;background:var(--panel);border:3px solid var(--red);display:grid;place-items:center;text-align:center;line-height:1}
 .seal small{display:block;font-family:var(--display);font-size:11px;letter-spacing:.12em;color:var(--fg)}
 .seal b{display:block;font-family:var(--display);font-size:22px;color:var(--red);font-weight:400;margin-top:2px}
@@ -68,10 +77,20 @@ section{padding-top:28px;scroll-margin-top:64px}
 .item .add{flex:none;width:32px;height:32px;border-radius:50%;border:0;padding:0;background:var(--red);display:grid;place-items:center;font-size:20px;line-height:1;color:#fff}
 .item .price{flex:none;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums;font-size:14px}
 
-.extras{margin-top:28px;background:var(--red-deep);border-radius:14px;padding:18px;display:grid;gap:6px}
-.extras h3{margin:0 0 4px;font-family:var(--display);font-weight:400;font-size:20px;color:var(--gold);text-transform:uppercase}
-.extras p{margin:0;font-size:14px}
-.extras strong{color:var(--gold)}
+.extras{margin-top:36px}
+.extras h3{margin:0 0 12px;font-family:var(--display);font-weight:400;font-size:28px;line-height:1;text-transform:uppercase;letter-spacing:.01em}
+.extras h3 em{font-style:normal;background:var(--red);padding:0 6px}
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.info{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--red);border-radius:14px;padding:14px;min-width:0}
+.info p{margin:4px 0 0;font-size:13px;color:var(--muted)}
+.info .big{display:block;font-family:var(--display);font-weight:400;font-size:24px;line-height:1.1;color:var(--gold);letter-spacing:.01em}
+.info.feat{grid-column:1/-1;border:0;background:linear-gradient(135deg,var(--red),var(--red-deep) 70%);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px}
+.info.feat .lbl{color:var(--fg);margin-bottom:8px}
+.info-prices{display:flex;gap:10px}
+.info-prices div{background:rgba(0,0,0,.28);border-radius:10px;padding:8px 14px;text-align:center}
+.info-prices small{display:block;font-size:11px;letter-spacing:.08em;font-weight:600}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{border:1px solid rgba(255,255,255,.45);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600}
 
 /* sacola */
 .bar{position:fixed;left:0;right:0;bottom:0;z-index:10;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:linear-gradient(transparent,var(--bg) 30%)}
@@ -115,10 +134,14 @@ textarea,input[type=text]{width:100%;background:var(--panel-2);border:1px solid 
 .radios .chip{flex:1}
 .addr{display:grid;grid-template-columns:1fr 96px;gap:12px 10px}
 .addr .full{grid-column:1/-1}
+.half{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px;font-size:14px}
+.hint{margin:6px 0 0;font-size:12px;color:var(--muted)}
+.verse{margin:16px 0 4px;padding:12px 14px;background:var(--panel);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;font-size:14px;font-style:italic}
+.verse cite{display:block;margin-top:4px;font-style:normal;font-size:12px;font-weight:600;color:var(--gold)}
 footer{margin-top:32px;color:var(--muted);font-size:12px;text-align:center}
 
 /* responsivo: celular pequeno → celular → tablet (modal centrado) → celular deitado */
-@media (max-width:640px){.list{grid-template-columns:1fr}.sizes div{padding:5px 7px}.sizes b{font-size:13px}}
+@media (max-width:640px){.info-grid{grid-template-columns:1fr 1fr}.info:last-child{grid-column:1/-1}.list{grid-template-columns:1fr}.sizes div{padding:5px 7px}.sizes b{font-size:13px}}
 @media (max-width:480px){
   header.hero{gap:12px;padding-block:20px 14px}
   .logo{width:68px;height:68px}
@@ -127,7 +150,9 @@ footer{margin-top:32px;color:var(--muted);font-size:12px;text-align:center}
   .sizes{width:100%;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:1fr}
   .item{gap:10px}
   .thumb{width:56px;height:56px}
-  .extras{padding:14px}
+  .extras h3{font-size:24px}
+  .info{padding:12px}
+  .info .big{font-size:21px}
   .sheet .box{padding-inline:14px}
   .box h3{font-size:22px}
 }
@@ -137,6 +162,7 @@ footer{margin-top:32px;color:var(--muted);font-size:12px;text-align:center}
   .chips,.radios{gap:6px}
   .chip{font-size:12px;padding:8px 4px}
   .addr{grid-template-columns:1fr 76px}
+  .info-grid{grid-template-columns:1fr}
   .bar button{padding:13px 14px;font-size:14px}
 }
 @media (min-width:700px){
@@ -173,17 +199,28 @@ footer{margin-top:32px;color:var(--muted);font-size:12px;text-align:center}
     </div>
   </header>
 
+  <blockquote class="verse" id="verse"></blockquote>
+
   <nav class="tabs" id="tabs"></nav>
   <main id="menu"></main>
 
   <div class="extras">
-    <h3>Informações extras</h3>
-    <p><strong>Borda recheada:</strong> P/M R$ 6,00 · G/GG R$ 10,00</p>
-    <p><strong>Sabores de borda:</strong> Catupiry, Cheddar, Cream cheese, Chocolate</p>
-    <p><strong>Ingrediente adicional:</strong> R$ 5,00</p>
-    <p>Todas as pizzas têm molho de tomate, orégano e azeitonas.</p>
-    <p><strong>Horário:</strong> todos os dias, das 18h às 23h · fechado só às terças</p>
-    <p><strong>Onde:</strong> Bom Jesus – PI</p>
+    <h3>Informações <em>extras</em></h3>
+    <div class="info-grid">
+      <div class="info feat">
+        <div>
+          <span class="lbl">Borda recheada</span>
+          <div class="info-prices"><div><small>P / M</small><b class="big">R$ 6,00</b></div><div><small>G / GG</small><b class="big">R$ 10,00</b></div></div>
+        </div>
+        <div>
+          <span class="lbl">Sabores de borda</span>
+          <div class="tags"><span>Catupiry</span><span>Cheddar</span><span>Cream cheese</span><span>Chocolate</span></div>
+        </div>
+      </div>
+      <div class="info"><span class="lbl">Ingrediente adicional</span><b class="big">R$ 5,00</b><p>por ingrediente</p></div>
+      <div class="info"><span class="lbl">Horário</span><b class="big">18h às 23h</b><p>Todos os dias · fechado só às terças</p></div>
+      <div class="info"><span class="lbl">Onde</span><b class="big">Bom Jesus – PI</b><p>Entrega ou retirada no balcão</p></div>
+    </div>
   </div>
   <footer>Pizzaria Sabores em Chamas · Bom Jesus – PI<div class="photo-note">Fotos ilustrativas.</div></footer>
 </div>
@@ -243,6 +280,21 @@ function horario(){
 function updStatus(){const h=horario(),el=document.getElementById("status");el.textContent="● "+h.txt;el.className="status "+(h.aberto?"on":"off");}
 updStatus(); setInterval(updStatus,60000);
 
+const brl=v=>"R$ "+v.toFixed(2).replace(".",",");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+// Versículos (Almeida Revista e Corrigida): aparece um por dia, na ordem da lista.
+const VERSICULOS=[
+ ["Provai e vede que o Senhor é bom; bem-aventurado o homem que nele confia.","Salmos 34:8"],
+ ["Eu sou o pão da vida; aquele que vem a mim não terá fome, e quem crê em mim nunca terá sede.","João 6:35"],
+ ["Portanto, quer comais, quer bebais ou façais outra qualquer coisa, fazei tudo para a glória de Deus.","1 Coríntios 10:31"],
+ ["O Senhor é o meu pastor; nada me faltará.","Salmos 23:1"],
+ ["Este é o dia que fez o Senhor; regozijemo-nos e alegremo-nos nele.","Salmos 118:24"],
+ ["Entrega o teu caminho ao Senhor; confia nele, e ele tudo fará.","Salmos 37:5"],
+ ["Posso todas as coisas naquele que me fortalece.","Filipenses 4:13"]
+];
+{const v=VERSICULOS[Math.floor(Date.now()/864e5)%VERSICULOS.length];document.getElementById("verse").innerHTML=`“${esc(v[0])}”<cite>${esc(v[1])}</cite>`;}
+
 function drinkSvg(n){
   const c=/Uva/.test(n)?"#6b2fa0":/Laranja/.test(n)?"#f08a12":/Guaraná/.test(n)?"#2e9a43":"#4a2412";
   const lab=/Zero/.test(n)?"#111":(/Coca/.test(n)?"#c8202a":"#f3efe8");
@@ -250,8 +302,6 @@ function drinkSvg(n){
   const big=/2L/.test(n), w=big?26:22, hh=big?52:44, x=(34-w)/2;
   return `<svg width="34" height="54" viewBox="0 0 34 54"><rect x="13" y="0" width="8" height="5" rx="1.5" fill="#d33"/><path d="M14 5h6l${(w-6)/2} 10v${hh-17}a3 3 0 0 1-3 3H${x+3}a3 3 0 0 1-3-3V15z" fill="${c}" opacity=".95"/><rect x="${x}" y="${big?24:22}" width="${w}" height="${big?12:10}" fill="${lab}"/><rect x="${x+3}" y="16" width="2.5" height="${hh-20}" rx="1.2" fill="#fff" opacity=".2"/></svg>`;
 }
-const brl=v=>"R$ "+v.toFixed(2).replace(".",",");
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let cart=[];
 const DRINKS=MENU.find(c=>c.bebidas).bebidas;
 const drinkLine=i=>cart.find(x=>x.nome===DRINKS[i][0]&&!x.det);
@@ -301,31 +351,45 @@ menu.addEventListener("click",e=>{
 });
 
 function openPizza(cat,it,img){
-  const st={sz:2,borda:null,add:0,qtd:1};
+  // st.meio: null = pizza inteira · "categoria:índice" = 2º sabor · st.pick: mostrando a lista de sabores para escolher o 2º
+  const st={sz:2,borda:null,add:0,qtd:1,meio:null,pick:false};
   const draw=()=>{
+    const c2=st.meio?MENU.find(c=>c.id===st.meio.split(":")[0]):null, it2=c2?c2.itens[+st.meio.split(":")[1]]:null;
+    // meio a meio: vale o preço do sabor de maior valor
+    const base=i=>Math.max(cat.precos[i],c2?c2.precos[i]:0);
     const bordaP=st.borda?(st.sz<2?6:10):0;
-    const unit=cat.precos[st.sz]+bordaP+st.add*5;
-    box.innerHTML=`<img class="modal-img" src="${img}" alt=""><div class="top"><div><h3>${esc(it[0])}</h3></div><button class="x" type="button" data-close aria-label="Fechar">×</button></div>
-    <p class="sub">${esc(it[1])}</p>
-    <div><span class="lbl">Tamanho</span><div class="chips">${SIZES.map((s,i)=>`<button type="button" class="chip" data-sz="${i}" aria-pressed="${st.sz===i}">${SZ[i]}<small>${brl(cat.precos[i])}</small></button>`).join("")}</div></div>
+    const unit=base(st.sz)+bordaP+st.add*5;
+    if(st.pick) box.innerHTML=`<div class="top"><div><h3>Escolha o 2º sabor</h3></div><button class="x" type="button" data-back aria-label="Voltar">×</button></div>
+    <p class="sub">Metade ${esc(it[0])} + metade do sabor que você tocar. Vale o preço do sabor de maior valor.</p>
+    ${MENU.filter(c=>c.itens).map(c=>`<div><span class="lbl">${c.nome}</span>${c.itens.map((x,i)=>x===it||x[2]?"":`<button type="button" class="item" data-pick="${c.id}:${i}"><img class="thumb" src="${THUMB(c.id,i)}" alt=""><span class="txt"><span class="name">${esc(x[0])}</span><span class="desc">${esc(x[1])}</span></span><span class="price">${SZ[st.sz]} ${brl(Math.max(cat.precos[st.sz],c.precos[st.sz]))}</span></button>`).join("")}</div>`).join("")}
+    <button type="button" class="ghost" data-back>Voltar</button>`;
+    else box.innerHTML=`<img class="modal-img" src="${img}" alt=""><div class="top"><div><h3>${esc(it2?`½ ${it[0]} + ½ ${it2[0]}`:it[0])}</h3></div><button class="x" type="button" data-close aria-label="Fechar">×</button></div>
+    <p class="sub">${esc(it[1])}${it2?" / "+esc(it2[1]):""}</p>
+    <div><span class="lbl">Sabores</span><div class="radios"><button type="button" class="chip" data-meio="0" aria-pressed="${st.meio===null}">Inteira</button><button type="button" class="chip" data-meio="1" aria-pressed="${st.meio!==null}">Meio a meio</button></div>
+    ${it2?`<div class="half"><span>2º sabor: <b>${esc(it2[0])}</b></span><button type="button" class="rm" data-troca>Trocar sabor</button></div><p class="hint">Vale o preço do sabor de maior valor.</p>`:""}</div>
+    <div><span class="lbl">Tamanho</span><div class="chips">${SIZES.map((s,i)=>`<button type="button" class="chip" data-sz="${i}" aria-pressed="${st.sz===i}">${SZ[i]}<small>${brl(base(i))}</small></button>`).join("")}</div></div>
     <div><span class="lbl">Borda recheada (+${brl(st.sz<2?6:10)})</span><div class="chips two"><button type="button" class="chip" data-borda="" aria-pressed="${!st.borda}">Sem borda</button>${BORDAS.map(b=>`<button type="button" class="chip" data-borda="${b}" aria-pressed="${st.borda===b}">${b}</button>`).join("")}</div></div>
     <div><span class="lbl">Ingredientes adicionais (+R$ 5,00 cada)</span><div class="stepper"><button type="button" data-add="-1" aria-label="Menos">−</button><span>${st.add}</span><button type="button" data-add="1" aria-label="Mais">+</button></div></div>
-    <div><label class="lbl" for="obs">${it[2]?"Seus 4 ingredientes":"Observação"}</label><textarea id="obs" rows="2" placeholder="${it[2]?"Ex.: frango, bacon, milho e catupiry":"Ex.: sem cebola, meio a meio com Calabresa…"}">${esc(st.obs||"")}</textarea></div>
+    <div><label class="lbl" for="obs">${it[2]?"Seus 4 ingredientes":"Observação"}</label><textarea id="obs" rows="2" placeholder="${it[2]?"Ex.: frango, bacon, milho e catupiry":"Ex.: sem cebola, bem assada…"}">${esc(st.obs||"")}</textarea></div>
     <div><span class="lbl">Quantidade</span><div class="stepper"><button type="button" data-q="-1" aria-label="Menos">−</button><span>${st.qtd}</span><button type="button" data-q="1" aria-label="Mais">+</button></div></div>
     <button type="button" class="cta" data-ok><span>Adicionar ao pedido</span><span>${brl(unit*st.qtd)}</span></button>`;
     box.onclick=e=>{
       const t=e.target.closest("button"); if(!t) return;
-      st.obs=box.querySelector("#obs").value;
+      const o=box.querySelector("#obs"), was=st.pick; if(o) st.obs=o.value;
       if(t.dataset.close!==undefined) return close();
+      if(t.dataset.meio==="0") st.meio=null;
+      if(t.dataset.meio==="1"&&!st.meio||t.dataset.troca!==undefined) st.pick=true;
+      if(t.dataset.back!==undefined) st.pick=false;
+      if(t.dataset.pick){st.meio=t.dataset.pick;st.pick=false;}
       if(t.dataset.sz) st.sz=+t.dataset.sz;
       if(t.dataset.borda!==undefined) st.borda=t.dataset.borda||null;
       if(t.dataset.add) st.add=Math.max(0,st.add+ +t.dataset.add);
       if(t.dataset.q) st.qtd=Math.max(1,st.qtd+ +t.dataset.q);
       if(t.dataset.ok!==undefined){
         const det=[SIZES[st.sz],st.borda?"borda "+st.borda:"",st.add?st.add+" adicional(is)":"",st.obs.trim()].filter(Boolean).join(" · ");
-        addLine({nome:"Pizza "+it[0],det,unit,qtd:st.qtd}); return close();
+        addLine({nome:it2?`Pizza meio ${it[0]} / meio ${it2[0]}`:"Pizza "+it[0],det,unit,qtd:st.qtd}); return close();
       }
-      draw();
+      draw(); if(was!==st.pick) box.scrollTop=0;
     };
   };
   draw(); sheet.hidden=false;

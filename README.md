@@ -11,6 +11,8 @@ Tudo fica no `<script>` do `index.html`:
 - **Número do WhatsApp:** constante `WHATSAPP` (DDI + DDD + número, só dígitos).
 - **Sabores, bebidas e preços:** lista `MENU`.
 - **Sabores de borda:** lista `BORDAS`.
+- **Versículos:** lista `VERSICULOS` (texto e referência). O site mostra um por dia, na ordem da lista.
+- **Meio a meio:** o cliente escolhe o 2º sabor na tela da pizza; é cobrado o preço do sabor de maior valor (função `base` em `openPizza`).
 - **Horário de funcionamento:** constantes `ABRE`, `FECHA` e `FOLGA` (dia da semana em que fecha).
 
 ## Publicar no GitHub Pages
