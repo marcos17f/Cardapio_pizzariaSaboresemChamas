@@ -139,6 +139,9 @@ textarea,input[type=text]{width:100%;background:var(--panel-2);border:1px solid 
 .verse{margin:16px 0 4px;padding:12px 14px;background:var(--panel);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;font-size:14px;font-style:italic}
 .verse cite{display:block;margin-top:4px;font-style:normal;font-size:12px;font-weight:600;color:var(--gold)}
 footer{margin-top:32px;color:var(--muted);font-size:12px;text-align:center}
+.credit{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.credit b{color:var(--fg)}
+.credit a{color:var(--gold);font-weight:600;text-decoration:none}
 
 /* responsivo: celular pequeno → celular → tablet (modal centrado) → celular deitado */
 @media (max-width:640px){.info-grid{grid-template-columns:1fr 1fr}.info:last-child{grid-column:1/-1}.list{grid-template-columns:1fr}.sizes div{padding:5px 7px}.sizes b{font-size:13px}}
@@ -222,7 +225,7 @@ footer{margin-top:32px;color:var(--muted);font-size:12px;text-align:center}
       <div class="info"><span class="lbl">Onde</span><b class="big">Bom Jesus – PI</b><p>Entrega ou retirada no balcão</p></div>
     </div>
   </div>
-  <footer>Pizzaria Sabores em Chamas · Bom Jesus – PI<div class="photo-note">Fotos ilustrativas.</div></footer>
+  <footer>Pizzaria Sabores em Chamas · Bom Jesus – PI<div class="photo-note">Fotos ilustrativas.</div><div class="credit">Site desenvolvido por <b>Marcos Lab</b> · <a href="https://wa.me/5561999075453" target="_blank" rel="noopener">(61) 99907-5453</a></div></footer>
 </div>
 
 <div class="bar" id="bar" hidden><button type="button" id="openCart"><span class="count" id="cartCount">0</span><span>Ver pedido</span><span class="tot" id="cartTot">R$ 0,00</span></button></div>
